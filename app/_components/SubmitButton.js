@@ -22,7 +22,7 @@ export default function SubmitButton({children, disabled})
         disabled:bg-gray-500 
         disabled:text-gray-300"
     >
-      {pending ? <SpinnerMini /> : children}
+      {pending || disabled ? <SpinnerMini /> : children}
 
     </button>
   )
