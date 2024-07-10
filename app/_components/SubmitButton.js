@@ -3,13 +3,13 @@
 import {useFormStatus} from "react-dom";
 import SpinnerMini from "./SpinnerMini";
 
-export default function SubmitButton({children})
+export default function SubmitButton({children, disabled})
 {
   const {pending} = useFormStatus();
 
   return (
     <button 
-      disabled={pending}
+      disabled={pending || disabled}
       className="
         bg-accent-500 
         px-8
