@@ -5,7 +5,8 @@ import { DayPicker } from "react-day-picker";
 import "react-day-picker/dist/style.css";
 import { useReservation } from "./ReservationContext";
 
-function isAlreadyBooked(range, datesArr) {
+function isAlreadyBooked(range, datesArr) 
+{
   return (
     range.from &&
     range.to &&
@@ -15,9 +16,10 @@ function isAlreadyBooked(range, datesArr) {
   );
 }
 
-function DateSelector({ settings, cabin, bookedDates }) {
+export default function DateSelector({ settings, cabin, bookedDates }) 
+{
   const { regularPrice, discount } = cabin;
-  const { range = {}, SetRange, ResetRange } = useReservation(); // Ensure range is always an object
+  const { range = {}, SetRange, ResetRange } = useReservation();
   const displayRange = isAlreadyBooked(range, bookedDates) ? {} : range;
   const { minBookingLength, maxBookingLength } = settings;
 
@@ -30,11 +32,16 @@ function DateSelector({ settings, cabin, bookedDates }) {
       <DayPicker
         className="pt-12 place-self-center"
         mode="range"
-        onSelect={(selectedRange) => {
-          if (selectedRange && selectedRange.from && selectedRange.to && isSameDay(selectedRange.from, selectedRange.to)) {
+        onSelect={(selectedRange) => 
+        {
+          if (selectedRange && 
+              selectedRange.from && 
+              selectedRange.to && 
+              isSameDay(selectedRange.from, selectedRange.to)) 
+          {
             selectedRange.to = undefined;
           }
-          SetRange(selectedRange || {}); // Ensure selectedRange is always an object
+          SetRange(selectedRange || {});
         }}
         selected={displayRange}
         min={minBookingLength + 1}
@@ -75,17 +82,17 @@ function DateSelector({ settings, cabin, bookedDates }) {
           ) : null}
         </div>
 
-        {range.from || range.to ? (
-          <button
-            className="border border-primary-800 py-2 px-4 text-sm font-semibold"
-            onClick={ResetRange}
-          >
-            Clear
-          </button>
-        ) : null}
+        {
+          range.from || range.to ? (
+            <button
+              className="border border-primary-800 py-2 px-4 text-sm font-semibold"
+              onClick={ResetRange}
+            >
+              Clear
+            </button>
+          ) : null
+        }
       </div>
     </div>
   );
 }
-
-export default DateSelector;
